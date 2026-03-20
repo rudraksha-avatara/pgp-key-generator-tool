@@ -2,6 +2,7 @@ import { STATUS_TYPES } from "./config.js";
 import { copyText } from "./clipboard.js";
 import { downloadKey, downloadMetadataJson, downloadMetadataText } from "./download.js";
 import { generatePgpKeyPair } from "./keygen.js";
+import { showToast } from "./toast.js";
 import {
   clearFieldErrors,
   clearOutputs,
@@ -55,6 +56,7 @@ async function handleGenerate(event, ui) {
 
   if (!validation.isValid) {
     setStatus("Please correct the highlighted fields before generating keys.", STATUS_TYPES.error);
+    showToast("Invalid input", "error");
     const firstErrorField = Object.keys(validation.errors)[0];
     if (firstErrorField) {
       const invalidInput = ui.form.querySelector(`[name="${firstErrorField}"]`);
@@ -84,6 +86,7 @@ async function handleGenerate(event, ui) {
     renderOutput(result);
     const duration = measureDuration(startedAt);
     setStatus(`Key pair generated successfully in ${duration}. Store the private key securely.`, STATUS_TYPES.success);
+    showToast("Keys generated successfully", "success");
   } catch (error) {
     if (state.destroyed || currentGenerationId !== state.generationId) {
       return;
@@ -91,6 +94,7 @@ async function handleGenerate(event, ui) {
 
     clearGeneratedState();
     setStatus(error?.message || "Key generation failed. Please try again.", STATUS_TYPES.error);
+    showToast(error?.message || "Key generation failed", "error");
   } finally {
     if (state.destroyed || currentGenerationId !== state.generationId) {
       return;
@@ -112,8 +116,10 @@ async function handleCopy(kind) {
   try {
     await copyText(value);
     setStatus(`${kind === "public" ? "Public" : "Private"} key copied to clipboard.`, STATUS_TYPES.success);
+    showToast("Copied to clipboard", "success");
   } catch (error) {
     setStatus(error?.message || "Clipboard copy failed.", STATUS_TYPES.error);
+    showToast(error?.message || "Failed to copy", "error");
   }
 }
 
@@ -166,11 +172,13 @@ function bindEvents(ui) {
     resetForm(ui.form);
     setPassphraseStrength(getPassphraseStrength(""));
     setStatus("Form cleared.", STATUS_TYPES.neutral);
+    showToast("Form cleared", "info");
   };
 
   const handleResetOutput = () => {
     clearGeneratedState();
     setStatus("Output reset.", STATUS_TYPES.neutral);
+    showToast("Output reset", "info");
   };
 
   const handleClearGenerated = () => {
