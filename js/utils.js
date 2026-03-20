@@ -23,6 +23,26 @@ export function formatDate(dateInput) {
   }).format(date);
 }
 
+export function formatDateTime(dateInput) {
+  if (!dateInput) {
+    return "-";
+  }
+
+  const date = dateInput instanceof Date ? dateInput : new Date(dateInput);
+
+  if (Number.isNaN(date.getTime())) {
+    return "-";
+  }
+
+  return new Intl.DateTimeFormat("en", {
+    year: "numeric",
+    month: "short",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit"
+  }).format(date);
+}
+
 export function addDays(date, days) {
   if (!days) {
     return null;

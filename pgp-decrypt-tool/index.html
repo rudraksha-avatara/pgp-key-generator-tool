@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PGP Decrypt Tool | Browser-Based OpenPGP Message Decryption</title>
+    <meta name="description" content="Decrypt armored PGP messages locally in your browser using your private key and passphrase. Private keys, passphrases, and plaintext never leave your device.">
+    <meta name="theme-color" content="#fcfcfc">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://pgp.itisuniqueofficial.com/pgp-decrypt-tool/">
+    <meta property="og:title" content="PGP Decrypt Tool">
+    <meta property="og:description" content="Privacy-friendly browser-based PGP decryption tool with optional signature verification. All cryptographic processing stays on your device.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pgp.itisuniqueofficial.com/pgp-decrypt-tool/">
+    <meta property="og:image" content="https://pgp.itisuniqueofficial.com/assets/icons/favicon.svg">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="PGP Decrypt Tool">
+    <meta name="twitter:description" content="Decrypt armored PGP messages in the browser using OpenPGP.js. No private key, passphrase, or plaintext is sent to any server.">
+    <meta name="twitter:image" content="https://pgp.itisuniqueofficial.com/assets/icons/favicon.svg">
+    <script src="../js/redirect.js"></script>
+    <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "PGP Decrypt Tool",
+        "url": "https://pgp.itisuniqueofficial.com/pgp-decrypt-tool/",
+        "applicationCategory": "SecurityApplication",
+        "operatingSystem": "Any",
+        "description": "Browser-based OpenPGP decryption tool that decrypts armored PGP messages locally using a private key and passphrase, with optional signature verification.",
+        "isAccessibleForFree": true,
+        "browserRequirements": "Requires a modern browser with Web Crypto support",
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "PGP Tools",
+          "url": "https://pgp.itisuniqueofficial.com/"
+        },
+        "hasPart": [
+          {
+            "@type": "WebPage",
+            "name": "PGP Key Generator Tool",
+            "url": "https://pgp.itisuniqueofficial.com/"
+          },
+          {
+            "@type": "WebPage",
+            "name": "PGP Decrypt Tool",
+            "url": "https://pgp.itisuniqueofficial.com/pgp-decrypt-tool/"
+          }
+        ],
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+    <main id="main-content" class="app-shell">
+      <header class="page-header" aria-labelledby="app-title">
+        <p class="eyebrow">Open-source utility</p>
+        <h1 id="app-title">PGP Decrypt Tool</h1>
+        <p class="lead">Decrypt armored OpenPGP messages locally in your browser. Your private key, passphrase, and plaintext never leave your device.</p>
+      </header>
+
+      <section class="notice-list" aria-labelledby="security-notes-heading">
+        <h2 id="security-notes-heading" class="visually-hidden">Security notes</h2>
+        <p>Your message is decrypted locally in your browser.</p>
+        <p>Your private key and passphrase never leave your device.</p>
+        <p>Paste an armored PGP encrypted message to decrypt it.</p>
+      </section>
+
+      <section class="panel" aria-labelledby="available-tools-heading">
+        <div class="section-heading">
+          <h2 id="available-tools-heading">Available Tools</h2>
+          <p>Privacy-first open-source tools that run entirely in your browser.</p>
+        </div>
+
+        <div class="tool-grid" aria-label="PGP tool navigation">
+          <article class="tool-card" aria-labelledby="tool-generator-title">
+            <div class="tool-card-copy">
+              <h3 id="tool-generator-title">PGP Key Generator Tool</h3>
+              <p>Generate PGP public and private keys locally in your browser.</p>
+            </div>
+            <a class="button-link" href="/" aria-label="Open PGP Key Generator Tool">Open Tool</a>
+          </article>
+
+          <article class="tool-card" aria-labelledby="tool-decrypt-title">
+            <div class="tool-card-copy">
+              <h3 id="tool-decrypt-title">PGP Decrypt Tool</h3>
+              <p>Decrypt PGP encrypted messages locally using your private key and passphrase.</p>
+            </div>
+            <p class="tool-card-status" aria-current="page">Current Tool</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="decrypt-heading">
+        <div class="section-heading">
+          <h2 id="decrypt-heading">Decrypt Message</h2>
+          <p>Paste an armored encrypted message, then unlock your armored private key with its passphrase.</p>
+        </div>
+
+        <div id="status-region" class="status-region" aria-live="polite" aria-atomic="true"></div>
+
+        <form id="decrypt-form" novalidate>
+          <div class="form-grid">
+            <div class="field-group field-group-wide">
+              <label for="encrypted-message">Encrypted Message</label>
+              <textarea id="encrypted-message" name="encryptedMessage" required spellcheck="false" aria-describedby="encrypted-message-help encrypted-message-error"></textarea>
+              <p id="encrypted-message-help" class="field-note">Paste a complete armored message block that starts with -----BEGIN PGP MESSAGE-----.</p>
+              <p id="encrypted-message-error" class="field-message error-text" aria-live="polite"></p>
+            </div>
+
+            <div class="field-group field-group-wide">
+              <label for="private-key">Private Key</label>
+              <textarea id="private-key" name="privateKey" required spellcheck="false" aria-describedby="private-key-help private-key-error"></textarea>
+              <p id="private-key-help" class="field-note">Paste your armored private key block. It is used only in this browser session.</p>
+              <p id="private-key-error" class="field-message error-text" aria-live="polite"></p>
+            </div>
+
+            <div class="field-group">
+              <label for="passphrase">Passphrase</label>
+              <div class="input-with-button">
+                <input id="passphrase" name="passphrase" type="password" autocomplete="current-password" required aria-describedby="passphrase-help passphrase-error">
+                <button type="button" class="secondary-button inline-button" data-toggle-password="passphrase" aria-controls="passphrase" aria-label="Show or hide private key passphrase">Show</button>
+              </div>
+              <p id="passphrase-help" class="field-note">The correct passphrase is required to unlock the private key and decrypt the message.</p>
+              <p id="passphrase-error" class="field-message error-text" aria-live="polite"></p>
+            </div>
+
+            <div class="field-group checkbox-group">
+              <label class="checkbox-label" for="verify-signature">
+                <input id="verify-signature" name="verifySignature" type="checkbox" aria-describedby="verify-signature-help">
+                <span>Verify signature when sender key is provided</span>
+              </label>
+              <p id="verify-signature-help" class="field-note">Optional. Add the sender public key below if you want the tool to check a signature.</p>
+            </div>
+
+            <div class="field-group field-group-wide">
+              <label for="sender-public-key">Sender Public Key <span class="optional">Optional</span></label>
+              <textarea id="sender-public-key" name="senderPublicKey" spellcheck="false" aria-describedby="sender-public-key-help sender-public-key-error"></textarea>
+              <p id="sender-public-key-help" class="field-note">Signature verification requires the sender public key. Decryption still works without it.</p>
+              <p id="sender-public-key-error" class="field-message error-text" aria-live="polite"></p>
+            </div>
+          </div>
+
+          <div class="button-row">
+            <button id="decrypt-button" type="submit" class="primary-button" aria-label="Decrypt PGP message">Decrypt Message</button>
+            <button id="clear-form-button" type="button" class="secondary-button" aria-label="Clear all decrypt form fields">Clear Form</button>
+            <button id="reset-output-button" type="button" class="secondary-button" aria-label="Reset decrypted output panels">Reset Output</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel" aria-labelledby="output-heading">
+        <div class="section-heading">
+          <h2 id="output-heading">Decrypted Output</h2>
+          <p>Review the plaintext locally, copy it if needed, and check the verification status separately from the decryption result.</p>
+        </div>
+
+        <div class="metadata-grid" aria-label="Decryption metadata summary">
+          <div class="metadata-item"><span>Decryption</span><strong id="meta-decryption">-</strong></div>
+          <div class="metadata-item"><span>Verification</span><strong id="meta-verification">-</strong></div>
+          <div class="metadata-item"><span>Message Format</span><strong id="meta-message-format">-</strong></div>
+          <div class="metadata-item"><span>Last Action</span><strong id="meta-action">-</strong></div>
+          <div class="metadata-item"><span>Output Length</span><strong id="meta-length">-</strong></div>
+          <div class="metadata-item"><span>Processed</span><strong id="meta-processed">-</strong></div>
+        </div>
+
+        <div class="output-stack">
+          <div class="output-block">
+            <div class="output-header">
+              <h3>Decrypted Message</h3>
+              <div class="button-row compact-row">
+                <button id="copy-output-button" type="button" class="secondary-button" aria-label="Copy decrypted message">Copy Decrypted Message</button>
+              </div>
+            </div>
+            <p id="decrypted-message-output-help" class="field-note">This plaintext is shown only in your browser. Reset the output when you no longer need it on screen.</p>
+            <textarea id="decrypted-message-output" class="output-textarea" readonly spellcheck="false" aria-label="Decrypted PGP message" aria-describedby="decrypted-message-output-help"></textarea>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Built with Open-Source Community &#8226; <a href="https://itisuniqueofficial.com" target="_blank" rel="noopener noreferrer" aria-label="Visit ITISUNIQUEOFFICIAL.com in a new tab">ITISUNIQUEOFFICIAL.com</a></p>
+      <p>This tool runs entirely in your browser. No data is sent to any server.</p>
+    </footer>
+
+    <script src="../vendor/openpgp.min.js"></script>
+    <script type="module" src="../js/decrypt-app.js"></script>
+  </body>
+</html>

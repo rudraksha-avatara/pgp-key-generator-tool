@@ -446,6 +446,41 @@ button:disabled {
   color: var(--muted);
 }
 
+.tool-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.tool-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+  border: 1px solid var(--border);
+  padding: 1rem;
+}
+
+.tool-card-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.tool-card-copy p {
+  color: var(--muted);
+}
+
+.tool-card-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  min-height: 3rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+
 .error-page {
   width: min(100%, 38rem);
   margin: 0 auto;
@@ -531,6 +566,14 @@ button:disabled {
 
   .metadata-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .tool-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .tool-card {
+    justify-content: space-between;
   }
 
   .metadata-item {

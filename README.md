@@ -1,6 +1,6 @@
-# 🔐 PGP Key Generator Tool
+# 🔐 PGP Tools
 
-> A simple, secure, and open-source PGP key generator that works entirely in your browser.
+> Simple, secure, and open-source PGP tools that work entirely in your browser.
 
 🌐 Live Website: https://pgp.itisuniqueofficial.com/
 
@@ -8,7 +8,10 @@
 
 ## 🚀 About This Project
 
-**PGP Key Generator Tool** is a lightweight, privacy-focused web application that allows users to generate **PGP public and private key pairs directly in the browser**.
+This project includes two lightweight, privacy-focused browser tools:
+
+- **PGP Key Generator Tool** for creating OpenPGP public and private key pairs locally
+- **PGP Decrypt Tool** for decrypting armored PGP messages locally with a private key and passphrase
 
 No server processing. No data tracking. No storage.
 
@@ -18,22 +21,29 @@ Everything happens locally on your device.
 
 ## 🧠 How It Works
 
-This tool uses modern cryptography via **OpenPGP.js** to generate keys securely:
+These tools use modern cryptography via **OpenPGP.js**:
 
-1. User enters:
+1. In the key generator, the user enters:
    - Name
    - Email
    - Passphrase
 
-2. The tool:
+2. The key generator:
    - Generates PGP key pair in the browser
    - Encrypts private key using passphrase
    - Displays public & private keys instantly
 
-3. User can:
+3. In the decrypt tool, the user can:
+   - Paste an armored encrypted PGP message
+   - Paste an armored private key
+   - Enter the private key passphrase
+   - Optionally add a sender public key for signature verification
+
+4. The user can:
    - Copy keys
+   - Copy decrypted plaintext
    - Download keys (.asc)
-   - Use them for encryption, signing, and secure communication
+   - Verify signed messages when a sender public key is available
 
 👉 No data is sent to any server at any time.
 
@@ -41,10 +51,12 @@ This tool uses modern cryptography via **OpenPGP.js** to generate keys securely:
 
 ## ✨ Features
 
-- 🔒 100% Client-Side Key Generation
+- 🔒 100% Client-Side Cryptographic Processing
 - ⚡ Fast & Secure (OpenPGP.js)
 - 🔑 RSA & ECC Support
 - 🧾 Public & Private Key Export (.asc)
+- 🔓 Local PGP Message Decryption
+- ✅ Optional Signature Verification During Decryption
 - 📋 Copy to Clipboard Support
 - 📱 Fully Responsive (Mobile + Desktop)
 - 🧠 Simple & Clean UI (No distractions)
@@ -67,7 +79,7 @@ Fully transparent — you can review the code anytime.
 Works instantly in any modern browser.
 
 ### ✔ Beginner Friendly
-Simple UI makes it easy for anyone to generate PGP keys.
+Simple UI makes it easy to generate keys or decrypt messages safely.
 
 ### ✔ Lightweight
 No heavy dependencies or frameworks.
@@ -88,6 +100,8 @@ No heavy dependencies or frameworks.
 ```text
 pgp-key-generator-tool/
 |- index.html
+|- pgp-decrypt-tool/
+|  \- index.html
 |- 404.html
 |- README.md
 |- LICENSE
@@ -104,6 +118,10 @@ pgp-key-generator-tool/
 |  |- app.js
 |  |- clipboard.js
 |  |- config.js
+|  |- decrypt-app.js
+|  |- decrypt-ui.js
+|  |- decrypt-validators.js
+|  |- decrypt.js
 |  |- download.js
 |  |- keygen.js
 |  |- redirect.js
@@ -118,8 +136,8 @@ pgp-key-generator-tool/
 
 ## 🔐 Security Notes
 
-- Private keys are never sent to any server
-- Keys are generated entirely client-side
+- Private keys, passphrases, and decrypted messages are never sent to any server
+- Key generation and decryption run entirely client-side
 - Always use a strong passphrase
 - Do not share your private key
 - Store your keys securely
@@ -136,6 +154,7 @@ Users are responsible for securely storing their private keys.
 ## 🌐 URL Structure & SEO
 
 - Canonical URL: https://pgp.itisuniqueofficial.com/
+- Decrypt tool canonical URL: https://pgp.itisuniqueofficial.com/pgp-decrypt-tool/
 - Clean URL enforced (no `index.html`)
 - SEO optimized metadata
 - Accessible and structured HTML
@@ -146,6 +165,7 @@ Users are responsible for securely storing their private keys.
 
 - Secure Email Communication
 - File Encryption
+- Message Decryption
 - Digital Signatures
 - Developer Security Tools
 - Learning Cryptography

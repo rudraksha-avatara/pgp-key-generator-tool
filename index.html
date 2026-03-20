@@ -4,18 +4,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PGP Key Generator Tool | Browser-Based OpenPGP Key Creation</title>
-    <meta name="description" content="Privacy-friendly browser-based OpenPGP key generation tool. Generate ECC or RSA PGP key pairs locally in your browser with no server-side key generation.">
+    <meta name="description" content="Privacy-friendly browser-based OpenPGP tools. Generate PGP public and private keys locally and access the companion PGP Decrypt Tool with no server-side processing.">
     <meta name="theme-color" content="#fcfcfc">
     <meta name="robots" content="index,follow">
     <link rel="canonical" href="https://pgp.itisuniqueofficial.com/">
     <meta property="og:title" content="PGP Key Generator Tool">
-    <meta property="og:description" content="Generate OpenPGP public and private key pairs locally in your browser using OpenPGP.js. No private key data is sent to any server.">
+    <meta property="og:description" content="Generate OpenPGP public and private key pairs locally in your browser and access the companion PGP Decrypt Tool. No sensitive data is sent to any server.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pgp.itisuniqueofficial.com/">
     <meta property="og:image" content="https://pgp.itisuniqueofficial.com/assets/icons/favicon.svg">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="PGP Key Generator Tool">
-    <meta name="twitter:description" content="Browser-based, client-side OpenPGP key generation with no server-side key creation.">
+    <meta name="twitter:description" content="Browser-based, client-side OpenPGP key generation with access to a matching local PGP Decrypt Tool.">
     <meta name="twitter:image" content="https://pgp.itisuniqueofficial.com/assets/icons/favicon.svg">
     <script src="js/redirect.js"></script>
     <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
@@ -25,13 +25,25 @@
       {
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        "name": "PGP Key Generator Tool",
+        "name": "PGP Tools",
         "url": "https://pgp.itisuniqueofficial.com/",
         "applicationCategory": "SecurityApplication",
         "operatingSystem": "Any",
-        "description": "Browser-based OpenPGP key generator that creates PGP public and private keys fully on the client side using OpenPGP.js.",
+        "description": "Browser-based OpenPGP tool suite for generating PGP key pairs and accessing a companion decrypt tool, fully on the client side using OpenPGP.js.",
         "isAccessibleForFree": true,
         "browserRequirements": "Requires a modern browser with Web Crypto support",
+        "hasPart": [
+          {
+            "@type": "WebPage",
+            "name": "PGP Key Generator Tool",
+            "url": "https://pgp.itisuniqueofficial.com/"
+          },
+          {
+            "@type": "WebPage",
+            "name": "PGP Decrypt Tool",
+            "url": "https://pgp.itisuniqueofficial.com/pgp-decrypt-tool/"
+          }
+        ],
         "offers": {
           "@type": "Offer",
           "price": "0",
@@ -56,6 +68,31 @@
         <p>Generated locally in your browser.</p>
         <p>Keep your private key and passphrase secure.</p>
         <p>A strong passphrase is required to protect the private key.</p>
+      </section>
+
+      <section class="panel" aria-labelledby="available-tools-heading">
+        <div class="section-heading">
+          <h2 id="available-tools-heading">Available Tools</h2>
+          <p>Privacy-first open-source tools that run entirely in your browser.</p>
+        </div>
+
+        <div class="tool-grid" aria-label="PGP tool navigation">
+          <article class="tool-card" aria-labelledby="tool-generator-title">
+            <div class="tool-card-copy">
+              <h3 id="tool-generator-title">PGP Key Generator Tool</h3>
+              <p>Generate PGP public and private keys locally in your browser.</p>
+            </div>
+            <p class="tool-card-status" aria-current="page">Current Tool</p>
+          </article>
+
+          <article class="tool-card" aria-labelledby="tool-decrypt-title">
+            <div class="tool-card-copy">
+              <h3 id="tool-decrypt-title">PGP Decrypt Tool</h3>
+              <p>Decrypt PGP encrypted messages locally using your private key and passphrase.</p>
+            </div>
+            <a class="button-link" href="/pgp-decrypt-tool/" aria-label="Open PGP Decrypt Tool">Open Tool</a>
+          </article>
+        </div>
       </section>
 
       <section class="panel" aria-labelledby="generator-heading">
