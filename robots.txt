@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Replace with your deployed sitemap URL when publishing.
+# Sitemap: https://pgp.itisuniqueofficial.com/sitemap.xml

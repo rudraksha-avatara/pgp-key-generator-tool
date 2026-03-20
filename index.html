@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PGP Key Generator Tool | Browser-Based OpenPGP Key Creation</title>
+    <meta name="description" content="Privacy-friendly browser-based OpenPGP key generation tool. Generate ECC or RSA PGP key pairs locally in your browser with no server-side key generation.">
+    <meta name="theme-color" content="#fcfcfc">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://pgp.itisuniqueofficial.com/">
+    <meta property="og:title" content="PGP Key Generator Tool">
+    <meta property="og:description" content="Generate OpenPGP public and private key pairs locally in your browser using OpenPGP.js. No private key data is sent to any server.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pgp.itisuniqueofficial.com/">
+    <meta property="og:image" content="https://pgp.itisuniqueofficial.com/assets/icons/favicon.svg">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="PGP Key Generator Tool">
+    <meta name="twitter:description" content="Browser-based, client-side OpenPGP key generation with no server-side key creation.">
+    <meta name="twitter:image" content="https://pgp.itisuniqueofficial.com/assets/icons/favicon.svg">
+    <script src="js/redirect.js"></script>
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "PGP Key Generator Tool",
+        "url": "https://pgp.itisuniqueofficial.com/",
+        "applicationCategory": "SecurityApplication",
+        "operatingSystem": "Any",
+        "description": "Browser-based OpenPGP key generator that creates PGP public and private keys fully on the client side using OpenPGP.js.",
+        "isAccessibleForFree": true,
+        "browserRequirements": "Requires a modern browser with Web Crypto support",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <main id="main-content" class="app-shell">
+      <header class="page-header" aria-labelledby="app-title">
+        <p class="eyebrow">Open-source utility</p>
+        <h1 id="app-title">PGP Key Generator Tool</h1>
+        <p class="lead">Generate OpenPGP key pairs locally in your browser. Private keys are never sent to a server by this application.</p>
+      </header>
+
+      <section class="notice-list" aria-labelledby="security-notes-heading">
+        <h2 id="security-notes-heading" class="visually-hidden">Security notes</h2>
+        <p>Generated locally in your browser.</p>
+        <p>Keep your private key and passphrase secure.</p>
+        <p>A strong passphrase is required to protect the private key.</p>
+      </section>
+
+      <section class="panel" aria-labelledby="generator-heading">
+        <div class="section-heading">
+          <h2 id="generator-heading">Key Generator</h2>
+          <p>Create a public and private key pair using OpenPGP.js.</p>
+        </div>
+
+        <div id="status-region" class="status-region" aria-live="polite" aria-atomic="true"></div>
+
+        <form id="keygen-form" novalidate>
+          <div class="form-grid">
+            <div class="field-group">
+              <label for="full-name">Full Name</label>
+              <input id="full-name" name="fullName" type="text" autocomplete="name" maxlength="120" required aria-describedby="full-name-error">
+              <p id="full-name-error" class="field-message error-text" aria-live="polite"></p>
+            </div>
+
+            <div class="field-group">
+              <label for="email">Email Address</label>
+              <input id="email" name="email" type="email" autocomplete="email" maxlength="160" inputmode="email" required aria-describedby="email-error">
+              <p id="email-error" class="field-message error-text" aria-live="polite"></p>
+            </div>
+
+            <div class="field-group field-group-wide">
+              <label for="comment">Key Comment <span class="optional">Optional</span></label>
+              <input id="comment" name="comment" type="text" maxlength="120" autocomplete="off" aria-describedby="comment-help comment-error">
+              <p id="comment-help" class="field-note">Optional label for your user ID. Do not include sensitive information.</p>
+              <p id="comment-error" class="field-message error-text" aria-live="polite"></p>
+            </div>
+
+            <div class="field-group">
+              <label for="passphrase">Passphrase</label>
+              <div class="input-with-button">
+                <input id="passphrase" name="passphrase" type="password" autocomplete="new-password" required aria-describedby="passphrase-criteria passphrase-error">
+                <button type="button" class="secondary-button inline-button" data-toggle-password="passphrase" aria-controls="passphrase" aria-label="Show or hide passphrase">Show</button>
+              </div>
+              <div class="strength-row" aria-live="polite">
+                <span id="passphrase-strength" class="strength-pill strength-pill-neutral">Enter a passphrase</span>
+                <span id="passphrase-criteria" class="criteria-text">Use at least 12 characters with upper, lower, number, and special characters.</span>
+              </div>
+              <p id="passphrase-error" class="field-message error-text" aria-live="polite"></p>
+            </div>
+
+            <div class="field-group">
+              <label for="confirm-passphrase">Confirm Passphrase</label>
+              <div class="input-with-button">
+                <input id="confirm-passphrase" name="confirmPassphrase" type="password" autocomplete="new-password" required aria-describedby="confirm-passphrase-error">
+                <button type="button" class="secondary-button inline-button" data-toggle-password="confirm-passphrase" aria-controls="confirm-passphrase" aria-label="Show or hide confirm passphrase">Show</button>
+              </div>
+              <p id="confirm-passphrase-error" class="field-message error-text" aria-live="polite"></p>
+            </div>
+
+            <div class="field-group">
+              <label for="algorithm">Algorithm</label>
+              <select id="algorithm" name="algorithm" aria-describedby="algorithm-help">
+                <option value="ecc">ECC (Curve25519)</option>
+                <option value="rsa">RSA 4096</option>
+              </select>
+              <p id="algorithm-help" class="field-note">ECC is the recommended modern default. RSA 4096 is available for compatibility.</p>
+            </div>
+
+            <div class="field-group">
+              <label for="expiration">Expiration</label>
+              <select id="expiration" name="expiration" aria-describedby="expiration-help">
+                <option value="none">No expiration</option>
+                <option value="365">1 year</option>
+                <option value="730">2 years</option>
+                <option value="custom">Custom days</option>
+              </select>
+              <p id="expiration-help" class="field-note">Set an expiration if you want the key to age out automatically.</p>
+            </div>
+
+            <div id="custom-days-group" class="field-group hidden">
+              <label for="custom-days">Custom Days</label>
+              <input id="custom-days" name="customDays" type="number" min="1" max="3650" step="1" inputmode="numeric" aria-describedby="custom-days-help custom-days-error">
+              <p id="custom-days-help" class="field-note">Enter between 1 and 3650 days.</p>
+              <p id="custom-days-error" class="field-message error-text" aria-live="polite"></p>
+            </div>
+
+            <div class="field-group checkbox-group">
+              <label class="checkbox-label" for="armored-output">
+                <input id="armored-output" name="armoredOutput" type="checkbox" checked aria-describedby="armored-output-help">
+                <span>ASCII armored output</span>
+              </label>
+              <p id="armored-output-help" class="field-note">If disabled, displayed output is Base64 and downloaded files use binary key data.</p>
+            </div>
+          </div>
+
+          <div class="button-row">
+            <button id="generate-button" type="submit" class="primary-button" aria-label="Generate PGP key pair">Generate Key Pair</button>
+            <button id="clear-form-button" type="button" class="secondary-button" aria-label="Clear all form fields">Clear Form</button>
+            <button id="reset-output-button" type="button" class="secondary-button" aria-label="Reset generated output panels">Reset Output</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel" aria-labelledby="output-heading">
+        <div class="section-heading">
+          <h2 id="output-heading">Generated Output</h2>
+          <p>Review, copy, or download the generated material.</p>
+        </div>
+
+        <div class="metadata-grid" aria-label="Key metadata summary">
+          <div class="metadata-item"><span>Name</span><strong id="meta-name">-</strong></div>
+          <div class="metadata-item"><span>Email</span><strong id="meta-email">-</strong></div>
+          <div class="metadata-item"><span>Algorithm</span><strong id="meta-algorithm">-</strong></div>
+          <div class="metadata-item"><span>Key Type</span><strong id="meta-key-type">-</strong></div>
+          <div class="metadata-item"><span>Created</span><strong id="meta-created">-</strong></div>
+          <div class="metadata-item"><span>Expires</span><strong id="meta-expires">-</strong></div>
+        </div>
+
+        <div class="output-stack">
+          <div class="output-block">
+            <div class="output-header">
+              <h3>Fingerprint</h3>
+            </div>
+            <p id="fingerprint-output-help" class="field-note">Fingerprint for the generated key pair.</p>
+            <textarea id="fingerprint-output" class="output-textarea output-textarea-compact" readonly spellcheck="false" aria-label="Generated fingerprint" aria-describedby="fingerprint-output-help"></textarea>
+          </div>
+
+          <div class="output-block">
+            <div class="output-header">
+              <h3>Public Key</h3>
+              <div class="button-row compact-row">
+                <button type="button" class="secondary-button" data-copy="public" aria-label="Copy generated public key">Copy Public Key</button>
+                <button type="button" class="secondary-button" data-download="public" aria-label="Download generated public key">Download Public Key</button>
+              </div>
+            </div>
+            <p id="public-key-output-help" class="field-note">Public key output. This block can be shared as needed.</p>
+            <textarea id="public-key-output" class="output-textarea" readonly spellcheck="false" aria-label="Generated public key" aria-describedby="public-key-output-help"></textarea>
+          </div>
+
+          <div class="output-block">
+            <div class="output-header">
+              <h3>Private Key</h3>
+              <div class="button-row compact-row">
+                <button type="button" class="secondary-button" data-copy="private" aria-label="Copy generated private key">Copy Private Key</button>
+                <button type="button" class="secondary-button" data-download="private" aria-label="Download generated private key">Download Private Key</button>
+              </div>
+            </div>
+            <p id="private-key-output-help" class="field-note">Private key output. Keep this material secure and never share it publicly.</p>
+            <textarea id="private-key-output" class="output-textarea" readonly spellcheck="false" aria-label="Generated private key" aria-describedby="private-key-output-help"></textarea>
+          </div>
+
+          <div class="output-actions">
+            <button type="button" class="secondary-button" data-download="metadata-json" aria-label="Download key metadata as JSON">Download Metadata JSON</button>
+            <button type="button" class="secondary-button" data-download="metadata-txt" aria-label="Download key metadata as text">Download Metadata TXT</button>
+            <button type="button" class="secondary-button" id="clear-generated-keys-button" aria-label="Clear generated keys from the page">Clear Generated Keys</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Built with Open-Source Community &#8226; <a href="https://itisuniqueofficial.com" target="_blank" rel="noopener noreferrer" aria-label="Visit ITISUNIQUEOFFICIAL.com in a new tab">ITISUNIQUEOFFICIAL.com</a></p>
+      <p>This tool runs entirely in your browser. No data is sent to any server.</p>
+    </footer>
+
+    <script src="vendor/openpgp.min.js"></script>
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>
